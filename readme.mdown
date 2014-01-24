@@ -1,0 +1,20 @@
+# Wikipedpla
+
+A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/).
+
+## Where it looks
+
+To find relevant items, the script tries a few different methods of scraping search terms from the page & stops after the first query that returns results from DPLA. The search terms are (in order):
+
+- the article's title
+- if there's any '"Foo" redirects here' notices up top, it'll try 'foo'
+- any categories, starting with the first category listed
+
+It should run only in the main (articles) namespace.
+
+## To Do
+
+- clean up the code, _a lot_
+- comments are good
+- make it work as a (Grease/Tamper)monkey userscript
+- make it into a Chrome extension
