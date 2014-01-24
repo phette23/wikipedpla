@@ -2,6 +2,10 @@
 
 A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/).
 
+## #LibHack
+
+Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014.
+
 ## Where it looks
 
 To find relevant items, the script tries a few different methods of scraping search terms from the page & stops after the first query that returns results from DPLA. The search terms are (in order):
