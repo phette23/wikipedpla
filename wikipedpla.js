@@ -11,7 +11,7 @@ var wp = {
     dpla = {},
     suggestions = [],
     buildURI = function (query) {
-        return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=handleResponse';
+        return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
     getCategories = function () {
         $('#mw-normal-catlinks li').each( function (index, el){
@@ -36,7 +36,7 @@ var wp = {
         console.log( 'JSONP URI:', buildURI(query) );
         $('body').append('<script src="'+ buildURI(query) +'"></script>');
     },
-    handleResponse = function (data) {
+    _handleResponse = function (data) {
         dpla = data;
         var numResults = dpla.docs.length;
 
@@ -125,8 +125,8 @@ var wp = {
         var id = $('li[id^="ca-nstab-"]').attr('id');
 
         // ensure callback function is in the global scope
-        if (!window.handleResponse) {
-            window.handleResponse = handleResponse;
+        if (!window._handleResponse) {
+            window._handleResponse = handleResponse;
         }
         if ( id.substr(-4) === 'main' ) {
             getCategories();
