@@ -1,4 +1,4 @@
-# Wikipedpla
+# WikipeDPLA
 
 A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/).
 
