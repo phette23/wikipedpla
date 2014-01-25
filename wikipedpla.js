@@ -1,9 +1,26 @@
 var wp = {
         // object representing the page's properties
-        'title': $('#firstHeading').text(),
-        'categories': [],
-        'otherTitles': [],
-        'redirects': []
+        title: $('#firstHeading').text(),
+        categories: [],
+        otherTitles: [],
+        redirects: [],
+        // find the categories on the page
+        getCategories: function () {
+            $('#mw-normal-catlinks li').each( function (index, el){
+                // this == current DOM el, not wp
+                wp.categories.push( $(el).text() );
+            });
+        },
+        // find any '"Foo" redirects here.' alternate titles
+        getOtherTitles: function () {
+            $('.dablink').each(function (index, el){
+                test = $(el).text().match('"(.*)" redirects here.' );
+                if (test) {
+                    // this == current DOM el, not wp
+                    wp.otherTitles.push(test[1]);
+                }
+            });
+        }
     },
     // used in constructing the DPLA URI
     apiKey = 'e4c036f3302aad8d8c188683967b9619',
@@ -17,21 +34,6 @@ var wp = {
     // construct DPLA API JSONP query
     buildURI = function (query) {
         return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
-    },
-    // find the categories on the page
-    getCategories = function () {
-        $('#mw-normal-catlinks li').each( function (index, el){
-            wp.categories.push( $(el).text() );
-        });
-    },
-    // find any '"Foo" redirects here.' alternate titles
-    getOtherTitles = function () {
-        $('.dablink').each(function (index, el){
-            test = $(el).text().match('"(.*)" redirects here.' );
-            if (test) {
-                wp.otherTitles.push(test[1]);
-            }
-        });
     },
     // get list of pages that redirect to current one
     // getRedirects = function () {
@@ -145,11 +147,10 @@ var wp = {
             window._handleResponse = _handleResponse;
         }
         if ( id.substr(-4) === 'main' ) {
-            getCategories();
-            getOtherTitles();
+            wp.getCategories();
+            wp.getOtherTitles();
             getData(wp.title);
         }
     };
-
 
 init();
