@@ -126,7 +126,7 @@ var wp = {
 
         // ensure callback function is in the global scope
         if (!window._handleResponse) {
-            window._handleResponse = handleResponse;
+            window._handleResponse = _handleResponse;
         }
         if ( id.substr(-4) === 'main' ) {
             getCategories();
