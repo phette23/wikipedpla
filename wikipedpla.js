@@ -33,7 +33,6 @@ var wp = {
     //     });
     // },
     getData = function (query) {
-        console.log( 'JSONP URI:', buildURI(query) );
         $('body').append('<script src="'+ buildURI(query) +'"></script>');
     },
     _handleResponse = function (data) {
@@ -41,10 +40,8 @@ var wp = {
         var numResults = dpla.docs.length;
 
         if (numResults > 0) {
-            console.log(numResults, ' results.');
             buildSuggestions(displaySuggestions);
         } else {
-            console.log('No results in query.');
             // no objects in query? try otherTitles
             if (titleCounter < wp.otherTitles.length) {
                 getData(wp.otherTitles[titleCounter]);
