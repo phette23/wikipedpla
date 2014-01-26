@@ -2,6 +2,8 @@
 
 UGFLAGS=-c -m --screw-ie8
 
+all: userscript iife min iife-min
+
 userscript:
 	cat userscript-header.txt wikipedpla.js > userscript.js
 
