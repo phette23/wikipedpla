@@ -1,6 +1,8 @@
 # WikipeDPLA
 
-A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/).
+A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/). The page [Wikipedia:TWL/FindDPLA](https://en.wikipedia.org/wiki/Wikipedia:TWL/FindDPLA) describes how to install it as a [User script](https://en.wikipedia.org/wiki/Wikipedia:User_scripts). Here's what it looks like in action:
+
+![WikipeDPLA in action](http://i.imgur.com/kaP5l9s.gif)
 
 ## #LibHack
 
