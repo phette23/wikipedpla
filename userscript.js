@@ -1,4 +1,12 @@
-(function (window, document, undefined) {
+// ==UserScript==
+// @name       Wikipedpla
+// @author     Phette23
+// @namespace  http://phette.net
+// @version    0.1
+// @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
+// @match      *://en.wikipedia.org/wiki/*
+// @copyright  CC0 Public Domain
+// ==/UserScript==
 var wp = {
         // object representing the page's properties
         title: $('#firstHeading').text(),
@@ -155,4 +163,3 @@ var wp = {
     };
 
 init();
-})(window, document);
