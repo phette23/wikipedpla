@@ -94,6 +94,11 @@ var wp = {
             callback();
         }
     },
+    // on off-chance title contains unescaped HTML,
+    // replace any angle brackets < > with HTML entities
+    rmAngles = function (str) {
+        return str.replace('<','&lt;').replace('>','&gt;');
+    },
     // add HTML to page based on info in suggestions array
     displaySuggestions = function () {
         // this is a terrible way to construct HTML
@@ -109,11 +114,11 @@ var wp = {
             if (last) {
                 html += ' & ';
             }
-            html += ' <a href="' + item.uri + '"';
+            html += ' <a href="' + rmAngles(item.uri) + '"';
             if (item.isImage) {
                 html += ' class="dp-img"';
             }
-            html += '>' + item.title;
+            html += '>' + rmAngles(item.title);
             if (!last) {
                 html += '</a>,';
             } else {
