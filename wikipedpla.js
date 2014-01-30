@@ -6,15 +6,15 @@ var wp = {
         redirects: [],
         // find the categories on the page
         getCategories: function () {
-            $('#mw-normal-catlinks li').each( function (index, el){
+            $('#mw-normal-catlinks li').each(function (index, el){
                 // this == current DOM el, not wp
-                wp.categories.push( $(el).text() );
+                wp.categories.push($(el).text());
             });
         },
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
-                test = $(el).text().match('"(.*)" redirects here.' );
+                test = $(el).text().match('"(.*)" redirects here.');
                 if (test) {
                     // this == current DOM el, not wp
                     wp.otherTitles.push(test[1]);
@@ -80,17 +80,17 @@ var wp = {
 
         $.each(items, function (ind, item){
             var res = item.sourceResource;
-            current.title = $.isArray( res.title ) ? res.title[0] : res.title;
+            current.title = $.isArray(res.title) ? res.title[0] : res.title;
             current.title = trunc(current.title);
             current.uri = item.isShownAt;
             // TODO: don't just arbitrarily take 2nd type here
-            current.type = $.isArray( res.type ) ? res.type[1] : res.type;
+            current.type = $.isArray(res.type) ? res.type[1] : res.type;
             current.isImage = isItAnImage(res);
             suggestions.push(current);
             current = {};
         });
 
-        if ( typeof callback === 'function' ) {
+        if (typeof callback === 'function') {
             callback();
         }
     },
@@ -161,12 +161,12 @@ var wp = {
         // type could be array or string
         if ($.isArray(type)) {
             for (var type in t) {
-                if ( type.toLowerCase() == 'image' ) {
+                if (type.toLowerCase() == 'image') {
                     return true;
                 }
             }
             return false;
-        } else if ( t && t.toLowerCase() === 'image' ) {
+        } else if (t && t.toLowerCase() === 'image') {
             return true;
         } else {
             return false;
@@ -188,7 +188,7 @@ var wp = {
             unsafeWindow._handleResponse = _handleResponse;
         }
 
-        if ( id.substr(-4) === 'main' ) {
+        if (id.substr(-4) === 'main') {
             wp.getCategories();
             wp.getOtherTitles();
             getData(wp.title);
