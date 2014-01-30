@@ -18,3 +18,6 @@ iife-min: iife
 
 clean:
 	rm iife.js iife.min.js userscript.js wikipedpla.min.js
+
+push:
+	git stash -q && make && git commit -am 'ran `make push`' && git push && git stash apply -q
