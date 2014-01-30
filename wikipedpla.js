@@ -22,9 +22,6 @@ var wp = {
             });
         }
     },
-    // used in constructing the DPLA URI
-    apiKey = 'e4c036f3302aad8d8c188683967b9619',
-    apiBase = 'http://api.dp.la/v2/items',
     // counters used when employing backup query terms
     catCounter = 0,
     titleCounter = 0,
@@ -33,7 +30,9 @@ var wp = {
     suggestions = [],
     // construct DPLA API JSONP query
     buildURI = function (query) {
-        return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
+        var key = 'e4c036f3302aad8d8c188683967b9619',
+            base = 'http://api.dp.la/v2/items';
+        return base + '?api_key=' + key + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
     // append JSONP script to DOM
     getData = function (query) {
