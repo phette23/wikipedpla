@@ -126,29 +126,40 @@ var wp = {
     displaySuggestions = function () {
         // this is a terrible way to construct HTML
         // TODO: use a legit templating library like Mustache
-        var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> items of possible interest:',
+        var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> ',
             last = false,
-            len = suggestions.length;
+            s = suggestions,
+            len = s.length;
 
-
-        $.each(suggestions, function (index, item) {
-            if (index + 1 == len && len !== 1) {
-                last = true;
-            }
-            if (last) {
-                html += ' & ';
-            }
-            html += ' <a href="' + rmAngles(item.uri) + '"';
-            if (item.isImage) {
+        if (len === 1) {
+            html += 'item of possible interest:';
+            html += ' <a href="' + rmAngles(s[0].uri) + '"';
+            if (s[0].isImage) {
                 html += ' class="dp-img"';
             }
-            html += '>' + rmAngles(item.title);
-            if (!last) {
-                html += '</a>,';
-            } else {
-                html += '</a>.';
-            }
-        });
+            html += '>' + rmAngles(s[0].title) + '</a>.';
+        } else {
+            html += 'items of possible interest:';
+            $.each(s, function (index, item) {
+                if (index + 1 == len) {
+                    last = true;
+                }
+                if (last) {
+                    html += ' & ';
+                }
+                html += ' <a href="' + rmAngles(item.uri) + '"';
+                if (item.isImage) {
+                    html += ' class="dp-img"';
+                }
+                html += '>' + rmAngles(item.title);
+                if (!last) {
+                    html += '</a>,';
+                } else {
+                    html += '</a>.';
+                }
+            });
+        }
+
         html += '</div>';
 
         addToDOM(html);
