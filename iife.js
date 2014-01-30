@@ -159,6 +159,11 @@ var wp = {
         if (!window._handleResponse) {
             window._handleResponse = _handleResponse;
         }
+        // adding a function to global scope in Grease/TamperMonkey
+        if (unsafeWindow) {
+            unsafeWindow._handleResponse = _handleResponse;
+        }
+
         if ( id.substr(-4) === 'main' ) {
             wp.getCategories();
             wp.getOtherTitles();
