@@ -44,13 +44,6 @@ var wp = {
     buildURI = function (query) {
         return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
-    // get list of pages that redirect to current one
-    // getRedirects = function () {
-    //     var baseURI = 'https://en.wikipedia.org/w/api.php?redirects&action=query&format=json&titles=';
-    //     $.getJSON( baseURI + encodeURIComponent(wp.title), function (json, textStatus){
-                // do stuff...
-    //     });
-    // },
     // append JSONP script to DOM
     getData = function (query) {
         $('body').append('<script src="'+ buildURI(query) +'"></script>');
@@ -94,8 +87,7 @@ var wp = {
         var items = dpla.docs,
             current = {};
 
-        // TODO: replace with $.each for deeper browser support
-        items.forEach(function (item){
+        $.each(items, function (ind, item){
             var res = item.sourceResource;
             current.title = $.isArray( res.title ) ? res.title[0] : res.title;
             current.title = trunc(current.title);
@@ -111,25 +103,31 @@ var wp = {
             callback();
         }
     },
+    // on off-chance title contains unescaped HTML,
+    // replace any angle brackets < > with HTML entities
+    rmAngles = function (str) {
+        return str.replace('<','&lt;').replace('>','&gt;');
+    },
     // add HTML to page based on info in suggestions array
     displaySuggestions = function () {
         // this is a terrible way to construct HTML
         // TODO: use a legit templating library like Mustache
         var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> items of possible interest:',
-            last = false;
-        // TODO: use $.each for deeper browser support
-        suggestions.forEach(function (item, index, array) {
-            if (index == array.length - 1) {
+            last = false,
+            len = suggestions.length;
+
+        $.each(suggestions, function (index, item) {
+            if (index + 1 == len) {
                 last = true;
             }
             if (last) {
                 html += ' & ';
             }
-            html += ' <a href="' + item.uri + '"';
+            html += ' <a href="' + rmAngles(item.uri) + '"';
             if (item.isImage) {
                 html += ' class="dp-img"';
             }
-            html += '>' + item.title;
+            html += '>' + rmAngles(item.title);
             if (!last) {
                 html += '</a>,';
             } else {
