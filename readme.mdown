@@ -21,7 +21,6 @@ It should run only in the main (articles) namespace.
 ## To Do
 
 - legit templating, not HTML strings
-- make it work as a (Grease/Tamper)monkey userscript
 - make it into a Chrome extension
 - more fallbacks: list of pages that redirect to current one (via [Wikipedia API](https://www.mediawiki.org/wiki/API:Main_page)), geo data on page
 
