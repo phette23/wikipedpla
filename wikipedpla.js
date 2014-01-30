@@ -35,13 +35,6 @@ var wp = {
     buildURI = function (query) {
         return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
-    // get list of pages that redirect to current one
-    // getRedirects = function () {
-    //     var baseURI = 'https://en.wikipedia.org/w/api.php?redirects&action=query&format=json&titles=';
-    //     $.getJSON( baseURI + encodeURIComponent(wp.title), function (json, textStatus){
-                // do stuff...
-    //     });
-    // },
     // append JSONP script to DOM
     getData = function (query) {
         $('body').append('<script src="'+ buildURI(query) +'"></script>');
