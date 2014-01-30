@@ -68,6 +68,19 @@ var wp = {
         }
 
     },
+    // truncate string if too long & add …
+    trunc = function (str, int) {
+        // default to 60 char cutoff
+        var cutoff = parseInt(int, 10) || 60,
+            // lots of Hathi Trust titles end in ' /'
+            newStr = str.replace(/(\s\/)$/, '');
+        if (newStr.length > cutoff) {
+            // trim trailing whitespace of substring
+            return newStr.substr(0, cutoff).replace(/\s$/,'') + "&hellip;";
+        } else {
+            return newStr;
+        }
+    },
     // map DPLA metadata into suggestions array
     buildSuggestions = function (callback) {
         var items = dpla.docs,
@@ -77,6 +90,7 @@ var wp = {
         items.forEach(function (item){
             var res = item.sourceResource;
             current.title = $.isArray( res.title ) ? res.title[0] : res.title;
+            current.title = trunc(current.title);
             current.uri = item.isShownAt;
             // TODO: don't just arbitrarily take 2nd type here
             current.type = $.isArray( res.type ) ? res.type[1] : res.type;
