@@ -6,7 +6,7 @@ A script meant to be run on Wikipedia it pages, it attempts to find relevant ite
 
 ## #LibHack
 
-Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014.
+Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014 with help from [Jake Orlowitz](https://en.wikipedia.org/wiki/User:Ocaasi).
 
 ## Where it looks
 
