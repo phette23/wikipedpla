@@ -1,10 +1,18 @@
 // ==UserScript==
-// @name       Wikipedpla
+// @name       WikipeDPLA
 // @author     Phette23
-// @namespace  http://phette.net
-// @version    0.1
+// @website    https://github.com/phette23/wikipedpla
+// @updateURL  https://raw.github.com/phette23/wikipedpla/master/userscript.js
+// @namespace  WikipeDPLA
+// @version    0.3
 // @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
-// @match      *://en.wikipedia.org/wiki/*
+// @match      http://*.wikipedia.org/wiki/*
+// @match      https://*.wikipedia.org/wiki/*
+// exclude some common, non-articles namespaces
+// @exclude    https://*.wikipedia.org/wiki/User:*
+// @exclude    https://*.wikipedia.org/wiki/Wikipedia:*
+// @exclude    https://*.wikipedia.org/wiki/Talk:*
+// @grant      unsafeWindow
 // @copyright  CC0 Public Domain
 // ==/UserScript==
 var wp = {
@@ -167,6 +175,11 @@ var wp = {
         if (!window._handleResponse) {
             window._handleResponse = _handleResponse;
         }
+        // adding a function to global scope in Grease/TamperMonkey
+        if (unsafeWindow) {
+            unsafeWindow._handleResponse = _handleResponse;
+        }
+
         if ( id.substr(-4) === 'main' ) {
             wp.getCategories();
             wp.getOtherTitles();
