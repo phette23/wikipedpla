@@ -78,8 +78,7 @@ var wp = {
         var items = dpla.docs,
             current = {};
 
-        // TODO: replace with $.each for deeper browser support
-        items.forEach(function (item){
+        $.each(items, function (ind, item){
             var res = item.sourceResource;
             current.title = $.isArray( res.title ) ? res.title[0] : res.title;
             current.title = trunc(current.title);
@@ -100,10 +99,11 @@ var wp = {
         // this is a terrible way to construct HTML
         // TODO: use a legit templating library like Mustache
         var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> items of possible interest:',
-            last = false;
-        // TODO: use $.each for deeper browser support
-        suggestions.forEach(function (item, index, array) {
-            if (index == array.length - 1) {
+            last = false,
+            len = suggestions.length;
+
+        $.each(suggestions, function (index, item) {
+            if (index + 1 == len) {
                 last = true;
             }
             if (last) {
