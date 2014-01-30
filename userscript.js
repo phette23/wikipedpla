@@ -4,7 +4,7 @@
 // @website    https://github.com/phette23/wikipedpla
 // @updateURL  https://raw.github.com/phette23/wikipedpla/master/userscript.js
 // @namespace  WikipeDPLA
-// @version    0.4
+// @version    0.4.1
 // @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
 // @match      http://*.wikipedia.org/wiki/*
 // @match      https://*.wikipedia.org/wiki/*
@@ -15,6 +15,9 @@
 // @grant      unsafeWindow
 // @copyright  CC0 Public Domain
 // ==/UserScript==
+// work around Greasemonkey's lack of access to window vars
+var jQuery = unsafeWindow.jQuery,
+    $ = jQuery;
 var wp = {
         // object representing the page's properties
         title: $('#firstHeading').text(),
@@ -39,9 +42,6 @@ var wp = {
             });
         }
     },
-    // used in constructing the DPLA URI
-    apiKey = 'e4c036f3302aad8d8c188683967b9619',
-    apiBase = 'http://api.dp.la/v2/items',
     // counters used when employing backup query terms
     catCounter = 0,
     titleCounter = 0,
@@ -50,7 +50,9 @@ var wp = {
     suggestions = [],
     // construct DPLA API JSONP query
     buildURI = function (query) {
-        return apiBase + '?api_key=' + apiKey + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
+        var key = 'e4c036f3302aad8d8c188683967b9619',
+            base = 'http://api.dp.la/v2/items';
+        return base + '?api_key=' + key + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
     // append JSONP script to DOM
     getData = function (query) {
@@ -100,8 +102,6 @@ var wp = {
             current.title = $.isArray(res.title) ? res.title[0] : res.title;
             current.title = trunc(current.title);
             current.uri = item.isShownAt;
-            // TODO: don't just arbitrarily take 2nd type here
-            current.type = $.isArray(res.type) ? res.type[1] : res.type;
             current.isImage = isItAnImage(res);
             suggestions.push(current);
             current = {};
