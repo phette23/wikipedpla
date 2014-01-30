@@ -23,5 +23,3 @@ It should run only in the main (articles) namespace.
 - legit templating, not HTML strings
 - make it into a Chrome extension
 - more fallbacks: list of pages that redirect to current one (via [Wikipedia API](https://www.mediawiki.org/wiki/API:Main_page)), geo data on page
-
-![Analytics](https://ga-beacon.appspot.com/UA-29080462-2/wikipedpla/readme?pixel)
