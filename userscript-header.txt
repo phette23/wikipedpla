@@ -12,6 +12,7 @@
 // @exclude    https://*.wikipedia.org/wiki/User:*
 // @exclude    https://*.wikipedia.org/wiki/Wikipedia:*
 // @exclude    https://*.wikipedia.org/wiki/Talk:*
+// @exclude    https://*.wikipedia.org/wiki/Main_Page*
 // @grant      unsafeWindow
 // @copyright  CC0 Public Domain
 // ==/UserScript==

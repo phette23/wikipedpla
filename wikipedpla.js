@@ -174,7 +174,9 @@ var wp = {
         // only execute on the Main (Articles) namespace
         // the first tab, text "Articles", has an id
         // of form "cs-nstab-$NAMESPACE"
-        var id = $('li[id^="ca-nstab-"]').attr('id');
+        var tab = $('li[id^="ca-nstab-"]'),
+            id = tab.attr('id'),
+            onMainPg = (tab.text() === 'Main Page');
 
         // ensure JSONP callback function is in the global scope
         if (!window._handleResponse) {
@@ -185,7 +187,7 @@ var wp = {
             unsafeWindow._handleResponse = _handleResponse;
         }
 
-        if (id.substr(-4) === 'main') {
+        if (id.substr(-4) === 'main' && !onMainPg) {
             wp.getCategories();
             wp.getOtherTitles();
             getData(wp.title);
