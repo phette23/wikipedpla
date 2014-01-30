@@ -20,8 +20,6 @@ It should run only in the main (articles) namespace.
 
 ## To Do
 
-- clean up the code, _a lot_
-- use jQuery.each over Array.prototype.each in a few places
 - legit templating, not HTML strings
 - make it work as a (Grease/Tamper)monkey userscript
 - make it into a Chrome extension
