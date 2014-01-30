@@ -82,8 +82,6 @@ var wp = {
             current.title = $.isArray(res.title) ? res.title[0] : res.title;
             current.title = trunc(current.title);
             current.uri = item.isShownAt;
-            // TODO: don't just arbitrarily take 2nd type here
-            current.type = $.isArray(res.type) ? res.type[1] : res.type;
             current.isImage = isItAnImage(res);
             suggestions.push(current);
             current = {};
