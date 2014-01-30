@@ -134,7 +134,7 @@ var wp = {
 
 
         $.each(suggestions, function (index, item) {
-            if (index + 1 == len) {
+            if (index + 1 == len && len !== 1) {
                 last = true;
             }
             if (last) {
