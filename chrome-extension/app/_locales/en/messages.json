@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "WikipeDPLA",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Links to the DPLA in Wikipedia",
+    "description": "The description of the application"
+  }
+}
