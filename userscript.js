@@ -4,7 +4,7 @@
 // @website    https://github.com/phette23/wikipedpla
 // @updateURL  https://raw.github.com/phette23/wikipedpla/master/userscript.js
 // @namespace  WikipeDPLA
-// @version    0.4.1
+// @version    0.4.2
 // @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
 // @match      http://*.wikipedia.org/wiki/*
 // @match      https://*.wikipedia.org/wiki/*
@@ -120,7 +120,16 @@ var wp = {
     // put constructed HTML on DOM
     // but only if top of the article is in view
     addToDOM = function (html) {
-        var topEls = $('#firstHeading').add('.dablink');
+        var topEls = $('#firstHeading').add('.dablink'),
+            // check if topEls are in view with every scroll
+            // might have to revisit performance of this
+            // scroll handlers are trouble
+            scrollHandler = function (event) {
+                if (topEls.visible(true)) {
+                    $('#wikipedpla').show('slow');
+                    $(window).off('scroll', scrollHandler);
+                }
+            };
         // #mw-content-text is main body of article
         $('#mw-content-text').prepend(html);
         // hide content initially
@@ -131,15 +140,7 @@ var wp = {
         if (topEls.visible(true)) {
             $('#wikipedpla').show('slow');
         } else {
-            // check if topEls are in view with every scroll
-            // might have to revisit performance of this
-            // scroll handlers are trouble
-            $(window).on('scroll', function (event){
-                if (topEls.visible(true)) {
-                    $('#wikipedpla').show('slow');
-                    $(window).off('scroll');
-                }
-            });
+            $(window).on('scroll', scrollHandler);
         }
     },
     // add HTML to page based on info in suggestions array
