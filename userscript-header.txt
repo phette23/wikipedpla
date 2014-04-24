@@ -4,7 +4,7 @@
 // @website    https://github.com/phette23/wikipedpla
 // @updateURL  https://raw.github.com/phette23/wikipedpla/master/userscript.js
 // @namespace  WikipeDPLA
-// @version    0.4.2
+// @version    0.4.3
 // @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
 // @match      http://*.wikipedia.org/wiki/*
 // @match      https://*.wikipedia.org/wiki/*
