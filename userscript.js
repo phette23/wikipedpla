@@ -187,16 +187,16 @@ var wp = {
     },
     // given DPLA doc, see if its type array contains 'image'
     isItAnImage = function (resource) {
-        var t = resource.type;
+        var types = resource.type;
         // type could be array or string
-        if ($.isArray(type)) {
-            for (var type in t) {
-                if (type.toLowerCase() == 'image') {
+        if ($.isArray(types)) {
+            for (var type in types) {
+                if (types.hasOwnProperty(type) && type.toLowerCase() == 'image') {
                     return true;
                 }
             }
             return false;
-        } else if (t && t.toLowerCase() === 'image') {
+        } else if (types && types.toLowerCase() === 'image') {
             return true;
         } else {
             return false;
