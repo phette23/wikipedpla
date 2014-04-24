@@ -9,9 +9,7 @@
     },
     "default_locale": "en",
     "background": {
-        "scripts": [
-            "scripts/background.js"
-        ]
+        "page": "background.html"
     },
   "page_action": {
     "default_icon": {
@@ -31,6 +29,7 @@
         "styles/main.css"
       ],
       "js": [
+        "bower_components/jquery/jquery.min.js",
         "scripts/contentscript.js"
       ],
       "run_at": "document_end",
