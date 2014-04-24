@@ -4,10 +4,6 @@ A script meant to be run on Wikipedia it pages, it attempts to find relevant ite
 
 ![WikipeDPLA in action](http://i.imgur.com/kaP5l9s.gif)
 
-## #LibHack
-
-Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014 with help from [Jake Orlowitz](https://en.wikipedia.org/wiki/User:Ocaasi).
-
 ## Where it looks
 
 To find relevant items, the script tries a few different methods of scraping search terms from the page & stops after the first query that returns results from DPLA. The search terms are (in order):
@@ -16,10 +12,13 @@ To find relevant items, the script tries a few different methods of scraping sea
 - if there's any '"Foo" redirects here' notices up top, it'll try 'foo'
 - any categories, starting with the first category listed
 
-It should run only in the main (articles) namespace.
+It only runs in the main (articles) namespace.
+
+## #LibHack
+
+Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014 with help from [Jake Orlowitz](https://en.wikipedia.org/wiki/User:Ocaasi). I [wrote a blog post](http://acrl.ala.org/techconnect/?p=4174) about the experience on the ACRL Tech Connect blog.
 
 ## To Do
 
 - legit templating, not HTML strings
 - make it into a Chrome extension
-- more fallbacks: list of pages that redirect to current one (via [Wikipedia API](https://www.mediawiki.org/wiki/API:Main_page)), geo data on page
