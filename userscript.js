@@ -4,7 +4,7 @@
 // @website    https://github.com/phette23/wikipedpla
 // @updateURL  https://raw.github.com/phette23/wikipedpla/master/userscript.js
 // @namespace  WikipeDPLA
-// @version    0.4.3
+// @version    0.4.4
 // @description  Shows links to possibly related DPLA items at the top of Wikipedia pages.
 // @match      http://*.wikipedia.org/wiki/*
 // @match      https://*.wikipedia.org/wiki/*
@@ -35,7 +35,8 @@ var wp = {
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
-                test = $(el).text().match('"(.*)" redirects here.');
+                var test = $(el).text().match('"(.*)" redirects here.');
+
                 if (test) {
                     // this == current DOM el, not wp
                     wp.otherTitles.push(test[1]);
@@ -43,9 +44,6 @@ var wp = {
             });
         }
     },
-    // counters used when employing backup query terms
-    catCounter = 0,
-    titleCounter = 0,
     // these vars will hold metadata from DPLA's API
     dpla = {},
     suggestions = [],
@@ -53,6 +51,7 @@ var wp = {
     buildURI = function (query) {
         var key = 'e4c036f3302aad8d8c188683967b9619',
             base = 'http://api.dp.la/v2/items';
+
         return base + '?api_key=' + key + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
     // append JSONP script to DOM
@@ -69,16 +68,13 @@ var wp = {
             buildSuggestions(displaySuggestions);
         } else {
             // no objects in query? try otherTitles
-            if (titleCounter < wp.otherTitles.length) {
-                getData(wp.otherTitles[titleCounter]);
-                titleCounter++;
-            } else if (catCounter < wp.categories.length) {
+            if (wp.otherTitles.length > 0) {
+                getData(wp.otherTitles.pop());
+            } else if (wp.categories.length > 0) {
                 // still nothing? try categories
-                getData(wp.categories[catCounter]);
-                catCounter++;
+                getData(wp.categories.pop());
             }
         }
-
     },
     // truncate string if too long & add …
     trunc = function (str, int) {
@@ -86,6 +82,7 @@ var wp = {
         var cutoff = parseInt(int, 10) || 60,
             // lots of Hathi Trust titles end in ' /'
             newStr = str.replace(/(\s\/)$/, '');
+
         if (newStr.length > cutoff) {
             // trim trailing whitespace of substring
             return newStr.substr(0, cutoff).replace(/\s$/,'') + "&hellip;";
@@ -130,6 +127,7 @@ var wp = {
                     $(window).off('scroll', scrollHandler);
                 }
             };
+
         // #mw-content-text is main body of article
         $('#mw-content-text').prepend(html);
         // hide content initially
@@ -155,24 +153,32 @@ var wp = {
         if (len === 1) {
             html += 'item of possible interest:';
             html += ' <a href="' + rmAngles(s[0].uri) + '"';
+
             if (s[0].isImage) {
                 html += ' class="dp-img"';
             }
+
             html += '>' + rmAngles(s[0].title) + '</a>.';
         } else {
             html += 'items of possible interest:';
+
             $.each(s, function (index, item) {
-                if (index + 1 == len) {
+                if (index + 1 === len) {
                     last = true;
                 }
+
                 if (last) {
                     html += ' & ';
                 }
+
                 html += ' <a href="' + rmAngles(item.uri) + '"';
+
                 if (item.isImage) {
                     html += ' class="dp-img"';
                 }
+
                 html += '>' + rmAngles(item.title);
+
                 if (!last) {
                     html += '</a>,';
                 } else {
@@ -188,13 +194,15 @@ var wp = {
     // given DPLA doc, see if its type array contains 'image'
     isItAnImage = function (resource) {
         var types = resource.type;
+
         // type could be array or string
         if ($.isArray(types)) {
             for (var type in types) {
-                if (types.hasOwnProperty(type) && type.toLowerCase() == 'image') {
+                if (types.hasOwnProperty(type) && type.toLowerCase() === 'image') {
                     return true;
                 }
             }
+
             return false;
         } else if (types && types.toLowerCase() === 'image') {
             return true;
@@ -215,6 +223,7 @@ var wp = {
         if (!window._handleResponse) {
             window._handleResponse = _handleResponse;
         }
+
         // adding a function to global scope in Grease/TamperMonkey
         if (typeof unsafeWindow !== 'undefined') {
             unsafeWindow._handleResponse = _handleResponse;
