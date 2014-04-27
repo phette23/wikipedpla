@@ -23,9 +23,6 @@ var wp = {
             });
         }
     },
-    // counters used when employing backup query terms
-    catCounter = 0,
-    titleCounter = 0,
     // these vars will hold metadata from DPLA's API
     dpla = {},
     suggestions = [],
@@ -50,16 +47,13 @@ var wp = {
             buildSuggestions(displaySuggestions);
         } else {
             // no objects in query? try otherTitles
-            if (titleCounter < wp.otherTitles.length) {
-                getData(wp.otherTitles[titleCounter]);
-                titleCounter++;
-            } else if (catCounter < wp.categories.length) {
+            if (wp.otherTitles.length > 0) {
+                getData(wp.otherTitles.pop());
+            } else if (wp.categories.length > 0) {
                 // still nothing? try categories
-                getData(wp.categories[catCounter]);
-                catCounter++;
+                getData(wp.categories.pop());
             }
         }
-
     },
     // truncate string if too long & add …
     trunc = function (str, int) {
