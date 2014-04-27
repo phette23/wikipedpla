@@ -14,7 +14,7 @@ var wp = {
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
-                test = $(el).text().match('"(.*)" redirects here.');
+                var test = $(el).text().match('"(.*)" redirects here.');
                 if (test) {
                     // this == current DOM el, not wp
                     wp.otherTitles.push(test[1]);
@@ -141,7 +141,7 @@ var wp = {
         } else {
             html += 'items of possible interest:';
             $.each(s, function (index, item) {
-                if (index + 1 == len) {
+                if (index + 1 === len) {
                     last = true;
                 }
                 if (last) {
@@ -170,7 +170,7 @@ var wp = {
         // type could be array or string
         if ($.isArray(types)) {
             for (var type in types) {
-                if (types.hasOwnProperty(type) && type.toLowerCase() == 'image') {
+                if (types.hasOwnProperty(type) && type.toLowerCase() === 'image') {
                     return true;
                 }
             }
