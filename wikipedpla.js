@@ -15,6 +15,7 @@ var wp = {
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
                 var test = $(el).text().match('"(.*)" redirects here.');
+
                 if (test) {
                     // this == current DOM el, not wp
                     wp.otherTitles.push(test[1]);
@@ -32,6 +33,7 @@ var wp = {
     buildURI = function (query) {
         var key = 'e4c036f3302aad8d8c188683967b9619',
             base = 'http://api.dp.la/v2/items';
+
         return base + '?api_key=' + key + '&q=' + encodeURIComponent(query) + '&callback=_handleResponse';
     },
     // append JSONP script to DOM
@@ -65,6 +67,7 @@ var wp = {
         var cutoff = parseInt(int, 10) || 60,
             // lots of Hathi Trust titles end in ' /'
             newStr = str.replace(/(\s\/)$/, '');
+
         if (newStr.length > cutoff) {
             // trim trailing whitespace of substring
             return newStr.substr(0, cutoff).replace(/\s$/,'') + "&hellip;";
@@ -109,6 +112,7 @@ var wp = {
                     $(window).off('scroll', scrollHandler);
                 }
             };
+
         // #mw-content-text is main body of article
         $('#mw-content-text').prepend(html);
         // hide content initially
@@ -134,24 +138,32 @@ var wp = {
         if (len === 1) {
             html += 'item of possible interest:';
             html += ' <a href="' + rmAngles(s[0].uri) + '"';
+
             if (s[0].isImage) {
                 html += ' class="dp-img"';
             }
+
             html += '>' + rmAngles(s[0].title) + '</a>.';
         } else {
             html += 'items of possible interest:';
+
             $.each(s, function (index, item) {
                 if (index + 1 === len) {
                     last = true;
                 }
+
                 if (last) {
                     html += ' & ';
                 }
+
                 html += ' <a href="' + rmAngles(item.uri) + '"';
+
                 if (item.isImage) {
                     html += ' class="dp-img"';
                 }
+
                 html += '>' + rmAngles(item.title);
+
                 if (!last) {
                     html += '</a>,';
                 } else {
@@ -167,6 +179,7 @@ var wp = {
     // given DPLA doc, see if its type array contains 'image'
     isItAnImage = function (resource) {
         var types = resource.type;
+
         // type could be array or string
         if ($.isArray(types)) {
             for (var type in types) {
@@ -174,6 +187,7 @@ var wp = {
                     return true;
                 }
             }
+
             return false;
         } else if (types && types.toLowerCase() === 'image') {
             return true;
@@ -194,6 +208,7 @@ var wp = {
         if (!window._handleResponse) {
             window._handleResponse = _handleResponse;
         }
+
         // adding a function to global scope in Grease/TamperMonkey
         if (typeof unsafeWindow !== 'undefined') {
             unsafeWindow._handleResponse = _handleResponse;
