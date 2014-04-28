@@ -20,5 +20,12 @@ Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, Januar
 
 ## To Do
 
+- opt-in click to display results in Wikipedia
+- Chrome extension
+    + use fallbacks
+    + opt-in click to display results
+    + publish working extension
+    + multiple opt-in styles (e.g. button on page, click ext. button)
+    + other options?
+    + framework for other digital library APIs (e.g. Europeana, Trove) to reuse
 - legit templating, not HTML strings
-- make it into a Chrome extension
