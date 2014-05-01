@@ -201,5 +201,7 @@ var wp = {
     };
 
 // add "Load DPLA" icon
-$('#firstHeading').append(' <a attr="load DPLA results" id="loaddpla" style="cursor:pointer;">DPLA</a>');
+// icon CC-BY-3.0 DPLA http://dp.la/info/terms/
+// @TODO don't hotlink to Twitter's server here
+$('#firstHeading').append('<a attr="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://pbs.twimg.com/profile_images/1561009466/web_white_-square-no-words.png" style="height:1em;width:1em;"></a>');
 $('#loaddpla').on('click', init);
