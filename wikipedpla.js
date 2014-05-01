@@ -197,11 +197,11 @@ var wp = {
         }
 
         // remove click handler; no need to load DPLA results twice
-        $('#loaddpla').off('click', init).css('cursor', 'default');
+        $('#loaddpla').off('click', init).css('cursor', 'default').removeAttr('title');
     };
 
 // add "Load DPLA" icon
 // icon CC-BY-3.0 DPLA http://dp.la/info/terms/
 // @TODO don't hotlink to Twitter's server here
-$('#firstHeading').append('<a attr="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://pbs.twimg.com/profile_images/1561009466/web_white_-square-no-words.png" style="height:1em;width:1em;"></a>');
+$('#firstHeading').append('<a title="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://pbs.twimg.com/profile_images/1561009466/web_white_-square-no-words.png" style="height:1em;width:1em;" alt="DPLA logo"></a>');
 $('#loaddpla').on('click', init);
