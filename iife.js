@@ -97,29 +97,11 @@ var wp = {
     // put constructed HTML on DOM
     // but only if top of the article is in view
     addToDOM = function (html) {
-        var topEls = $('#firstHeading').add('.dablink'),
-            // check if topEls are in view with every scroll
-            // might have to revisit performance of this
-            // scroll handlers are trouble
-            scrollHandler = function (event) {
-                if (topEls.visible(true)) {
-                    $('#wikipedpla').show('slow');
-                    $(window).off('scroll', scrollHandler);
-                }
-            };
+        var topEls = $('#firstHeading').add('.dablink');
 
         // #mw-content-text is main body of article
         $('#mw-content-text').prepend(html);
-        // hide content initially
-        $('#wikipedpla').css('display', 'hidden');
-
-        // only display if element is visible
-        // true => check for only partial visibility
-        if (topEls.visible(true)) {
-            $('#wikipedpla').show('slow');
-        } else {
-            $(window).on('scroll', scrollHandler);
-        }
+        $('#wikipedpla').show('slow');
     },
     // add HTML to page based on info in suggestions array
     displaySuggestions = function () {
@@ -214,78 +196,14 @@ var wp = {
             wp.getOtherTitles();
             getData(wp.title);
         }
+
+        // remove click handler; no need to load DPLA results twice
+        $('#loaddpla').off('click', init).css('cursor', 'default').removeAttr('title');
     };
 
-// jQuery().visible() plugin
-// github.com/teamdf/jquery-visible
-(function($){
-
-    /**
-     * Copyright 2012, Digital Fusion
-     * Licensed under the MIT license.
-     * http://teamdf.com/jquery-plugins/license/
-     *
-     * @author Sam Sehnert
-     * @desc A small plugin that checks whether elements are within
-     *       the user visible viewport of a web browser.
-     *       only accounts for vertical position, not horizontal.
-     */
-    var $w = $(window);
-    $.fn.visible = function(partial,hidden,direction){
-
-        if (this.length < 1)
-            return;
-
-        var $t        = this.length > 1 ? this.eq(0) : this,
-            t         = $t.get(0),
-            vpWidth   = $w.width(),
-            vpHeight  = $w.height(),
-            direction = (direction) ? direction : 'both',
-            clientSize = hidden === true ? t.offsetWidth * t.offsetHeight : true;
-
-        if (typeof t.getBoundingClientRect === 'function'){
-
-            // Use this native browser method, if available.
-            var rec = t.getBoundingClientRect(),
-                tViz = rec.top    >= 0 && rec.top    <  vpHeight,
-                bViz = rec.bottom >  0 && rec.bottom <= vpHeight,
-                lViz = rec.left   >= 0 && rec.left   <  vpWidth,
-                rViz = rec.right  >  0 && rec.right  <= vpWidth,
-                vVisible   = partial ? tViz || bViz : tViz && bViz,
-                hVisible   = partial ? lViz || lViz : lViz && rViz;
-
-            if(direction === 'both')
-                return clientSize && vVisible && hVisible;
-            else if(direction === 'vertical')
-                return clientSize && vVisible;
-            else if(direction === 'horizontal')
-                return clientSize && hVisible;
-        } else {
-
-            var viewTop         = $w.scrollTop(),
-                viewBottom      = viewTop + vpHeight,
-                viewLeft        = $w.scrollLeft(),
-                viewRight       = viewLeft + vpWidth,
-                offset          = $t.offset(),
-                _top            = offset.top,
-                _bottom         = _top + $t.height(),
-                _left           = offset.left,
-                _right          = _left + $t.width(),
-                compareTop      = partial === true ? _bottom : _top,
-                compareBottom   = partial === true ? _top : _bottom,
-                compareLeft     = partial === true ? _right : _left,
-                compareRight    = partial === true ? _left : _right;
-
-            if(direction === 'both')
-                return !!clientSize && ((compareBottom <= viewBottom) && (compareTop >= viewTop)) && ((compareRight <= viewRight) && (compareLeft >= viewLeft));
-            else if(direction === 'vertical')
-                return !!clientSize && ((compareBottom <= viewBottom) && (compareTop >= viewTop));
-            else if(direction === 'horizontal')
-                return !!clientSize && ((compareRight <= viewRight) && (compareLeft >= viewLeft));
-        }
-    };
-
-})(jQuery);
-
-init();
+// add "Load DPLA" icon
+// icon CC-BY-3.0 DPLA http://dp.la/info/terms/
+// @TODO don't hotlink to Twitter's server here
+$('#firstHeading').append('<a title="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://pbs.twimg.com/profile_images/1561009466/web_white_-square-no-words.png" style="height:1em;width:1em;" alt="DPLA logo"></a>');
+$('#loaddpla').on('click', init);
 })(window, document);
