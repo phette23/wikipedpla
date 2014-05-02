@@ -173,13 +173,6 @@ var wp = {
     },
     // run all the things if we're in the main namespace
     init = function () {
-        // only execute on the Main (Articles) namespace
-        // the first tab, text "Articles", has an id
-        // of form "cs-nstab-$NAMESPACE"
-        var tab = $('li[id^="ca-nstab-"]'),
-            id = tab.attr('id'),
-            onMainPg = (tab.text() === 'Main Page');
-
         // ensure JSONP callback function is in the global scope
         if (!window._handleResponse) {
             window._handleResponse = _handleResponse;
@@ -190,18 +183,24 @@ var wp = {
             unsafeWindow._handleResponse = _handleResponse;
         }
 
-        if (id.substr(-4) === 'main' && !onMainPg) {
-            wp.getCategories();
-            wp.getOtherTitles();
-            getData(wp.title);
-        }
+        wp.getCategories();
+        wp.getOtherTitles();
+        getData(wp.title);
 
         // remove click handler; no need to load DPLA results twice
         $('#loaddpla').off('click', init).css('cursor', 'default').removeAttr('title');
-    };
+    },
 
-// add "Load DPLA" icon
-// icon CC-BY-3.0 DPLA http://dp.la/info/terms/
-// @TODO don't hotlink to Twitter's server here
-$('#firstHeading').append('<a title="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://dl.dropboxusercontent.com/u/23539776/dpla.png" style="height:1em;width:1em;" alt="DPLA logo"></a>');
-$('#loaddpla').on('click', init);
+// only execute on the Main (Articles) namespace
+// the first tab, text "Articles", has an id
+// of form "cs-nstab-$NAMESPACE"
+    tab = $('li[id^="ca-nstab-"]');
+
+if (tab.attr('id').substr(-4) === 'main' &&
+    tab.text() !== 'Main Page') {
+    // add "Load DPLA" icon
+    // icon CC-BY-3.0 DPLA http://dp.la/info/terms/
+    // @TODO don't hotlink to Twitter's server here
+    $('#firstHeading').append('<a title="load DPLA results" id="loaddpla" style="cursor:pointer;margin-left:.4em;vertical-align:top;"><img src="https://dl.dropboxusercontent.com/u/23539776/dpla.png" style="height:1em;width:1em;" alt="DPLA logo"></a>');
+    $('#loaddpla').on('click', init);
+}
