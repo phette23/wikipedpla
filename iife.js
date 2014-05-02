@@ -198,6 +198,8 @@ var wp = {
     tab = $('li[id^="ca-nstab-"]');
 
 if (tab.attr('id').substr(-4) === 'main' &&
+    tab.hasClass('selected') &&
+    $('#ca-view').hasClass('selected') &&
     tab.text() !== 'Main Page') {
     // add "Load DPLA" icon
     // icon CC-BY-3.0 DPLA http://dp.la/info/terms/
