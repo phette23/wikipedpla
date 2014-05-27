@@ -1,0 +1,42 @@
+{
+    "name": "__MSG_appName__",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "__MSG_appDescription__",
+    "icons": {
+        "16": "images/DPLA-logo-16.jpg",
+        "128": "images/DPLA-logo-128.jpg"
+    },
+    "default_locale": "en",
+    "background": {
+        "page": "background.html"
+    },
+  "page_action": {
+    "default_icon": {
+      "19": "images/DPLA-logo-19.jpg",
+      "38": "images/DPLA-logo-38.jpg"
+    },
+    "default_title": "WikipeDPLA",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "http://api.dp.la/"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.wikipedia.org/wiki/*"
+      ],
+      "css": [
+        "styles/main.css"
+      ],
+      "js": [
+        "bower_components/jquery/jquery.min.js",
+        "scripts/contentscript.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ]
+}
