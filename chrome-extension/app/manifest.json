@@ -5,6 +5,8 @@
     "description": "__MSG_appDescription__",
     "icons": {
         "16": "images/DPLA-logo-16.jpg",
+        "19": "images/DPLA-logo-19.jpg",
+        "38": "images/DPLA-logo-38.jpg",
         "128": "images/DPLA-logo-128.jpg"
     },
     "default_locale": "en",
