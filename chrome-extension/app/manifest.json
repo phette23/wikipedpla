@@ -40,5 +40,10 @@
       "run_at": "document_end",
       "all_frames": false
     }
+  ],
+  "web_accessible_resources": [
+    "bower_components/jquery/jquery.min.js",
+    "scripts/contentscript.js",
+    "styles/main.css"
   ]
 }
