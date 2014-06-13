@@ -1,12 +1,37 @@
 <!doctype html>
 <html>
     <head>
-        <link href="styles/main.css" rel="stylesheet">
-        <!-- build:js scripts/options.js -->
-        <script src="scripts/options.js"></script>
-        <!-- endbuild -->
+        <title>WikipeDPLA Options</title>
+        <link href="styles/options.css" rel="stylesheet">
     </head>
     <body>
-        <!-- CHROME EXTENSION OPTION -->
+
+        <h1>WikipeDPLA Options</h1>
+
+        <form action="">
+            <p>
+                <label for="loadstyle">How are Results Inserted</label>
+                <select name="loadstyle" id="loadstyle">
+                    <option value="icon" selected>
+                        By clicking an icon by the article's title
+                    </option>
+                    <option value="dablink">
+                        By clicking a link at the top of the article
+                    </option>
+                    <option value="auto">
+                        Automatically
+                    </option>
+                </select>
+            </p>
+
+            <p>
+                <label for="numresults">Number of Results Shown</label>
+                <input type="number" min="1" max="10" value="5" name="numresults" id="numresults" />
+            </p>
+        </form>
+
+    <!-- build:js scripts/options.js -->
+    <script src="scripts/options.js"></script>
+    <!-- endbuild -->
     </body>
 </html>

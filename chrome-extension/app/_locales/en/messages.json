@@ -1,10 +1,34 @@
 {
-  "appName": {
-    "message": "WikipeDPLA",
-    "description": "The name of the application"
-  },
-  "appDescription": {
-    "message": "See relevant content from the Digital Public Library of America in Wikipedia",
-    "description": "The description of the application"
-  }
+    "appName": {
+        "message": "WikipeDPLA",
+        "description": "manifest: the name of the application"
+    },
+    "appDescription": {
+        "message": "See relevant content from the Digital Public Library of America in Wikipedia",
+        "description": "manifest: the description of the application"
+    },
+    "optsTitle": {
+        "message": "WikipeDPLA Options",
+        "description": "options: page <h1> & title"
+    },
+    "optsLoadstyleLabel": {
+        "message": "How are Results Inserted",
+        "description": "options: label for loading style <select>"
+    },
+    "optsLoadIcon": {
+        "message": "By clicking an icon by the article's title",
+        "description": "options: click icon by title to load results"
+    },
+    "optsLoadDablink": {
+        "message": "By clicking a link at the top of the article",
+        "description": "options: click dablink to load results"
+    },
+    "optsLoadAuto": {
+        "message": "Automatically",
+        "description": "options: auto load results"
+    },
+    "optsNumresultsLabel": {
+        "message": "Number of Results Shown",
+        "description": "options: label for number of results <input>"
+    }
 }
