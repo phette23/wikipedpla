@@ -1,7 +1,8 @@
 .dp-img:after {
-    background-size: 12px 12px;
     background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg);
+    background-size: contain;
     content: " ";
     display: inline-block;
     height: 12px;
     width: 12px;
+}
