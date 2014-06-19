@@ -14,7 +14,7 @@ var wp = {
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
-                var test = $(el).text().match('"(.*)" redirects here.');
+                var test = $(el).text().match('"(.*)" redirects here');
 
                 if (test) {
                     // this == current DOM el, not wp
