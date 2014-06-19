@@ -129,9 +129,9 @@ var wp = {
             len = suggestions.length;
 
         if (len === 1) {
-            html += 'item of possible interest:';
+            html += 'item:';
         } else {
-            html += 'items of possible interest:';
+            html += 'items:';
         }
 
         $.each(suggestions, function (index, item) {
@@ -158,7 +158,6 @@ var wp = {
                 html += '</a>.';
             }
         });
-
 
         html += '</div>';
 
