@@ -34,7 +34,7 @@ var wp = {
         },
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
-            $('.dablink').each(function (index, el){
+            $('.hatnote').each(function (index, el){
                 var test = $(el).text().match('"(.*)" redirects here');
 
                 if (test) {
@@ -117,7 +117,7 @@ var wp = {
     // put constructed HTML on DOM
     // but only if top of the article is in view
     addToDOM = function (html) {
-        var topEls = $('#firstHeading').add('.dablink'),
+        var topEls = $('#firstHeading').add('.hatnote'),
             // check if topEls are in view with every scroll
             // might have to revisit performance of this
             // scroll handlers are trouble
@@ -145,14 +145,14 @@ var wp = {
     displaySuggestions = function () {
         // this is a terrible way to construct HTML
         // TODO: use a legit templating library like Mustache
-        var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> ',
+        var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="hatnote" style="display:none;"><a href="http://dp.la">DPLA</a> ',
             last = false,
             len = suggestions.length;
 
         if (len === 1) {
-            html += 'item of possible interest:';
+            html += 'item:';
         } else {
-            html += 'items of possible interest:';
+            html += 'items:';
         }
 
         $.each(suggestions, function (index, item) {
@@ -179,7 +179,6 @@ var wp = {
                 html += '</a>.';
             }
         });
-
 
         html += '</div>';
 
