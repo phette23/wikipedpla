@@ -35,7 +35,7 @@ var wp = {
         // find any '"Foo" redirects here.' alternate titles
         getOtherTitles: function () {
             $('.dablink').each(function (index, el){
-                var test = $(el).text().match('"(.*)" redirects here.');
+                var test = $(el).text().match('"(.*)" redirects here');
 
                 if (test) {
                     // this == current DOM el, not wp
@@ -129,45 +129,39 @@ var wp = {
         // TODO: use a legit templating library like Mustache
         var html = '<style>.dp-img:after { content: " "; background: url(https://upload.wikimedia.org/wikipedia/commons/a/a3/VisualEditor_-_Icon_-_Picture.svg); width: 12px; height: 12px; display: inline-block; background-size: 12px 12px;} }</style><div id="wikipedpla" class="dablink" style="display:none;"><a href="http://dp.la">DPLA</a> ',
             last = false,
-            s = suggestions,
-            len = s.length;
+            len = suggestions.length;
 
         if (len === 1) {
             html += 'item of possible interest:';
-            html += ' <a href="' + rmAngles(s[0].uri) + '"';
+        } else {
+            html += 'items of possible interest:';
+        }
 
-            if (s[0].isImage) {
+        $.each(suggestions, function (index, item) {
+            // len != 1 prevent & added to list of 1
+            if (index + 1 === len && len !== 1) {
+                last = true;
+            }
+
+            if (last) {
+                html += ' & ';
+            }
+
+            html += ' <a href="' + rmAngles(item.uri) + '"';
+
+            if (item.isImage) {
                 html += ' class="dp-img"';
             }
 
-            html += '>' + rmAngles(s[0].title) + '</a>.';
-        } else {
-            html += 'items of possible interest:';
+            html += '>' + rmAngles(item.title);
 
-            $.each(s, function (index, item) {
-                if (index + 1 === len) {
-                    last = true;
-                }
+            if (!last) {
+                html += '</a>,';
+            } else {
+                html += '</a>.';
+            }
+        });
 
-                if (last) {
-                    html += ' & ';
-                }
-
-                html += ' <a href="' + rmAngles(item.uri) + '"';
-
-                if (item.isImage) {
-                    html += ' class="dp-img"';
-                }
-
-                html += '>' + rmAngles(item.title);
-
-                if (!last) {
-                    html += '</a>,';
-                } else {
-                    html += '</a>.';
-                }
-            });
-        }
 
         html += '</div>';
 
