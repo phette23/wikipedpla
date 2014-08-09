@@ -1,3 +1,7 @@
+**Note**: I've stopped working on this project in favor of [the WikipeDPLA Chrome extension](https://github.com/phette23/wdpla-ext).
+
+<hr/>
+
 # WikipeDPLA
 
 A script meant to be run on Wikipedia it pages, it attempts to find relevant items in [the Digital Public Library of America](http://dp.la/). The page [Wikipedia:TWL/FindDPLA](https://en.wikipedia.org/wiki/Wikipedia:TWL/FindDPLA) describes how to install it as a [User script](https://en.wikipedia.org/wiki/Wikipedia:User_scripts). Here's what it looks like in action:
@@ -17,15 +21,3 @@ It only runs in the main (articles) namespace.
 ## #LibHack
 
 Written at [#libhack](http://www.libhack.org) at ALA MidWinter on Friday, January 24th, 2014 with help from [Jake Orlowitz](https://en.wikipedia.org/wiki/User:Ocaasi). I [wrote a blog post](http://acrl.ala.org/techconnect/?p=4174) about the experience on the ACRL Tech Connect blog.
-
-## To Do
-
-- opt-in click to display results in Wikipedia
-- Chrome extension
-    + use fallbacks
-    + opt-in click to display results
-    + publish working extension
-    + multiple opt-in styles (e.g. button on page, click ext. button)
-    + other options?
-    + framework for other digital library APIs (e.g. Europeana, Trove) to reuse
-- legit templating, not HTML strings
